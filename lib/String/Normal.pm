@@ -1,65 +1,66 @@
 package String::Normal;
-
-use 5.006;
 use strict;
-use warnings FATAL => 'all';
+use warnings;
+our $VERSION = '0.01';
+
+sub new {
+    my $self = shift;
+    return bless {@_}, $self;
+}
 
 =head1 NAME
 
-String::Normal - The great new String::Normal!
-
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
-our $VERSION = '0.01';
-
+String::Normal - Transform strings into a normal form.
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use String::Normal;
+    my $normalizer = String::Normal->new;
 
-    my $foo = String::Normal->new();
-    ...
+=head1 DESCRIPTION
 
-=head1 EXPORT
+THIS MODULE IS AN ALPHA RELEASE!
 
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+Normalize your strings.
 
-=head1 SUBROUTINES/METHODS
+=head1 METHODS
 
-=head2 function1
+=over 4
 
-=cut
+=item C<new( %params )>
 
-sub function1 {
-}
+  my $normalizer = String::Normal->new;
 
-=head2 function2
+Constructs object. Accepts the following named parameters:
 
-=cut
+=back
 
-sub function2 {
-}
+=over 8
+
+=item * C<foo>
+
+Placeholder.
+
+=back
 
 =head1 AUTHOR
 
 Jeff Anderson, C<< <jeffa at cpan.org> >>
 
-=head1 BUGS
+=head1 BUGS AND LIMITATIONS
 
-Please report any bugs or feature requests to C<bug-string-normal at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Normal>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
+Please report any bugs or feature requests to either
 
+=over 4
 
+=item * Email: C<bug-string-normal at rt.cpan.org>
+
+=item * Web: L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=String-Normal>
+
+=back
+
+I will be notified, and then you'll automatically be notified of progress
+on your bug as I make changes.
 
 
 =head1 SUPPORT
@@ -68,32 +69,39 @@ You can find documentation for this module with the perldoc command.
 
     perldoc String::Normal
 
+The Github project is L<https://github.com/jeffa/String-Normal>
 
 You can also look for information at:
 
 =over 4
 
-=item * RT: CPAN's request tracker (report bugs here)
+=item * RT: CPAN's request tracker (report bugs here) L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Normal>
 
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=String-Normal>
+=item * AnnoCPAN: Annotated CPAN documentation L<http://annocpan.org/dist/String-Normal>
 
-=item * AnnoCPAN: Annotated CPAN documentation
+=item * CPAN Ratings L<http://cpanratings.perl.org/d/String-Normal>
 
-L<http://annocpan.org/dist/String-Normal>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/String-Normal>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/String-Normal/>
+=item * Search CPAN L<http://search.cpan.org/dist/String-Normal/>
 
 =back
 
-
 =head1 ACKNOWLEDGEMENTS
 
+The following people contributed algorithms and strategies in addition to the author. Thank you very much! :)
+
+=over 4
+
+=item * Gauthier Groult
+
+=item * Christophe Louvion
+
+=item * Virginie Louvion
+
+=item * Ana Martinez
+
+=item * Ray Toal
+
+=back
 
 =head1 LICENSE AND COPYRIGHT
 
