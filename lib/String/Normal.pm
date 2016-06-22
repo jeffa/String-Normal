@@ -4,6 +4,7 @@ use warnings;
 our $VERSION = '0.01';
 
 use Lingua::Stem;
+our $STEM;
 
 =for notes
 you give it a type (name, phone, address, city, state, zip)
@@ -12,6 +13,7 @@ type gets: stop list, stem list, compress list
 
 sub new {
     my $self = shift;
+    $STEM = Lingua::Stem->new;
     return bless {@_}, $self;
 }
 
