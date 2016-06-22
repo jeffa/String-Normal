@@ -1,7 +1,7 @@
 package String::Normal::Type::Name;
 use strict;
 use warnings;
-use parent 'String::Normal::Type';
+use String::Normal::Type;
 
 # i do not currently remember how exception/deletions work
 
@@ -23,20 +23,9 @@ my %deletions = (
     incorporated => '',
 );
 
-sub compress {
-    my ($self,$file) = @_;
-
-    my %compress;
-    for (_expand_ranges( _slurp_file( $file || 'name_compress.txt' ))) {
-        attach( \%compress, split '-', $_ );
-    }
-
-    return \%compress;
-}
-
 sub stem {
     my ($self,$file) = @_;
-    my %stem = _slurp_file( $file || 'name_stem.txt' );
+    my %stem = String::Normal::Type::_slurp_file( $file || 'name_stem.txt' );
     return \%stem;
 }
 
@@ -44,7 +33,7 @@ sub stop {
     my ($self,$file) = @_;
 
     my %stop;
-    for (_slurp_file( $file || 'name_stop.txt' )) {
+    for (String::Normal::Type::_slurp_file( $file || 'name_stop.txt' )) {
         my ($word,$count) = split ',', $_;
         $count ||= 1;
 
@@ -60,6 +49,17 @@ sub stop {
     }
 
     return \%stop;
+}
+
+sub compress {
+    my ($self,$file) = @_;
+
+    my %compress;
+    for (String::Normal::Type::_expand_ranges( String::Normal::Type::_slurp_file( $file || 'name_compress.txt' ))) {
+        String::Normal::Type::_attach( \%compress, split '-', $_ );
+    }
+
+    return \%compress;
 }
 
 1;

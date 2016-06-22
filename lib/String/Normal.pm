@@ -3,13 +3,113 @@ use strict;
 use warnings;
 our $VERSION = '0.01';
 
+use String::Normal::Type::Name;
+
 use Lingua::Stem;
 our $STEM;
+our %name_compress;
 
 sub new {
     my $self = shift;
     $STEM = Lingua::Stem->new;
+    $STEM->add_exceptions( String::Normal::Type::Name->stem ); 
+
     return bless {@_}, $self;
+}
+
+sub transform {
+    my ($self,$value) = @_;
+
+    # tokenize and stem
+    my (@digits,@words);
+    _tokenize_name( $value, \@digits, \@words );
+    $STEM->stem_in_place( @words );
+
+}
+
+sub _tokenize_name {
+    my ($value,$digits,$words) = @_;
+
+    $value = _scrub_value( $value );
+
+    # split tokens on more than just whitespace:
+    # split digits from words but keep things like 3D and 1st combined,
+    # also split things like abcd#efgh but keep pound signs for #2 and # 1 and #
+    # prevent the empty string from finding its way into the token list as well
+    my @tokens = map { map length $_ ? $_ : (), split /##+|\s+|#+\b|\b#+/, $_ } $value =~ /(?:\d+\w{1,2}\b|\d+|\D+)/g;
+
+    # walk each token thru the tree and create markers
+    my @pairs = _mark_pairs( \@tokens );
+    _compress_list( \@tokens, \@pairs ) if @pairs;
+
+    # separate out tokens that contain digits (snowball stemmer will scrub all digits)
+    for (@tokens) {
+        if (/\d/) {
+            push @$digits, $_;
+        } else {
+            push @$words, $_;
+        }
+    }
+}
+
+sub _scrub_value {
+    my $value = shift;
+
+    $value = _deaccent_value( $value );
+    $value =~ tr/'//d;
+
+    # replace all rejected charactes with space
+    $value =~ s/[^a-z0-9#]/ /g;
+
+    return $value
+}
+
+sub _deaccent_value {
+    my $value = shift;
+
+    # remove decorations and stem variations of single quotes
+    $value =~ tr[àáâãäåæçèéêëìíîïñòóôõöøùúûüýÿ’`\x92]
+                [aaaaaaaceeeeiiiinoooooouuuuyy'''];
+
+    return $value;
+}
+
+
+sub _mark_pairs {
+    my $tokens = shift;
+    my @pairs = ();
+    for my $i (0 .. $#$tokens) {
+        my $token = $tokens->[$i];
+        next unless exists $name_compress{$token};
+        next if $i + 1 > $#$tokens;
+        my $end = _walk_tree( $i + 1, $tokens, $name_compress{$token} );
+        if ($end) {
+            push @pairs, [$i,$end];
+            $i = $end;
+        }
+    }
+    return @pairs;
+}
+
+
+sub _walk_tree {
+    my ($i, $list, $tree) = @_;
+
+    if (my $t = $tree->{$list->[$i]}) {
+        if (ref $t eq 'HASH' and !%$t) {
+            return $i;
+        } else {
+            _walk_tree( $i + 1, $list, $t );
+        }
+    }
+}
+
+sub _compress_list {
+    my ($list,$pairs) = @_;
+    for my $pair (reverse @$pairs) {
+        my ($s,$e) = @$pair;
+        splice @$list, $s, $e - $s + 1, join '', @$list[$s .. $e];
+    }
 }
 
 1;
@@ -47,6 +147,16 @@ Constructs object. Accepts the following named parameters:
 =item * C<name_stem>
 
 Placeholder.
+
+=back
+
+=over 4
+
+=item C<transform( $word )>
+
+  my $new = $normalizer->transform( "Donie's Bagels & Donuts" );
+
+Normalizes word.
 
 =back
 
