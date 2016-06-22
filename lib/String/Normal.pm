@@ -12,6 +12,9 @@ sub new {
     return bless {@_}, $self;
 }
 
+1;
+
+__END__
 =head1 NAME
 
 String::Normal - Transform strings into a normal form.
@@ -41,7 +44,7 @@ Constructs object. Accepts the following named parameters:
 
 =over 8
 
-=item * C<foo>
+=item * C<name_stem>
 
 Placeholder.
 
@@ -147,7 +150,4 @@ CONTRIBUTOR WILL BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, OR
 CONSEQUENTIAL DAMAGES ARISING IN ANY WAY OUT OF THE USE OF THE PACKAGE,
 EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 =cut
-
-1; # End of String::Normal
