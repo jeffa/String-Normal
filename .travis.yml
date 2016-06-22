@@ -1,5 +1,6 @@
 language: perl
-script: prove -lrj6
+before_install:
+    - cpanm Lingua::Stem
 perl:
   - "5.20"
   - "5.18"

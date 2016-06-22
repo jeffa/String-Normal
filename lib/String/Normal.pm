@@ -6,11 +6,6 @@ our $VERSION = '0.01';
 use Lingua::Stem;
 our $STEM;
 
-=for notes
-you give it a type (name, phone, address, city, state, zip)
-type gets: stop list, stem list, compress list
-=cut
-
 sub new {
     my $self = shift;
     $STEM = Lingua::Stem->new;
