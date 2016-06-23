@@ -62,6 +62,8 @@ sub transform {
 #    unless (length $value) {
 #        return $value, @{ $errors{EMPTY_NAME} };
 #    }
+
+    return $value;
 }
 
 sub _tokenize_name {
