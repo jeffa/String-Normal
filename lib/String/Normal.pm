@@ -7,16 +7,19 @@ use String::Normal::Type::Name;
 
 use Lingua::Stem;
 our $STEM;
+our %name_stop;
 our %name_compress;
 
 sub new {
     my $self = shift;
     $STEM = Lingua::Stem->new;
     $STEM->add_exceptions( String::Normal::Type::Name->stem ); 
-
+    %name_stop     = %{ String::Normal::Type::Name->stop };
+    %name_compress = %{ String::Normal::Type::Name->compress };
     return bless {@_}, $self;
 }
 
+# currently only handles name types
 sub transform {
     my ($self,$value) = @_;
 
@@ -25,6 +28,40 @@ sub transform {
     _tokenize_name( $value, \@digits, \@words );
     $STEM->stem_in_place( @words );
 
+    # Remove "special" beginning and/or ending stopwords, if such words are present
+    # and enough tokens are in place to remove them safely.
+    if (@words) {
+        # make a copy of @words and whittle it down
+        my @copy = @words;
+        my $count;
+        if ($count = $name_stop{first}->{$copy[0]}) {
+            shift @copy if @copy >= $count;
+        }
+        if (@copy and $count = $name_stop{last}->{$copy[-1]}) {
+            pop @copy if @copy >= $count;
+        }
+
+        # reverting back if overnormalization occurs
+        @words = @copy if @copy;
+    }
+
+    # Remove all middle stop words that are safe to remove, based on the number of
+    # tokens, of course.
+    my @filtered = map {
+        my $count = $name_stop{middle}->{$_} || '';
+        (length $count and @words >= $count) ? () : $_;
+    } @words;
+
+    # If we filtered all words out, "revert" to the full array of stemmed tokens.
+    @filtered = @words unless @filtered;
+
+    # The canon name is the sorted filtered stemmed words plus the original digits.
+    $value = join ' ', sort @digits, @filtered;
+
+    # Mark this record as an error if we removed every single token.  Should not happen.
+#    unless (length $value) {
+#        return $value, @{ $errors{EMPTY_NAME} };
+#    }
 }
 
 sub _tokenize_name {

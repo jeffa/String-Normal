@@ -22,7 +22,7 @@ sub _expand_ranges {
     for my $line (@_) {
         my @ranges = map { /(\w)-?(\w)/;[$1..$2] } $line =~ /\[(\w-?\w)+\]/g;
         $line =~ s/\[.*//;
-        expand( \my @results, $line, @ranges );
+        _expand( \my @results, $line, @ranges );
         push @expanded, @results;
     }
 
@@ -38,7 +38,7 @@ sub _expand {
     }
 
     for (@$car) {
-        expand( $results, $str . $_, @cdr );
+        _expand( $results, $str . $_, @cdr );
     };
 }
 
@@ -46,7 +46,7 @@ sub _attach {
     my ($t, $car, @cdr) = @_;
     return unless defined $car;
     $t->{$car} = {} unless ref $t->{$car};
-    attach( $t->{$car}, @cdr );
+    _attach( $t->{$car}, @cdr );
 }
 
 1;
