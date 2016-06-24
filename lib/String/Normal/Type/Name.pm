@@ -3,26 +3,6 @@ use strict;
 use warnings;
 use String::Normal::Type;
 
-# i do not currently remember how exception/deletions work
-
-# Lingua::Stem exceptions
-# the pound sign is always troublesome in perl
-my %exceptions;
-$exceptions{'#'} = 'no';
-
-my %deletions = (
-    de           => '',
-    da           => '',
-    du           => '',
-    'le'         => '',
-    'and'        => '',
-    the          => '',
-    of           => '',
-    from         => '',
-    inc          => '',
-    incorporated => '',
-);
-
 sub stem {
     my ($self,$file) = @_;
     my %stem = String::Normal::Type::_slurp_file( $file || 'name_stem.txt' );
