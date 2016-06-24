@@ -49,6 +49,29 @@ sub _attach {
     _attach( $t->{$car}, @cdr );
 }
 
+sub _scrub_value {
+    my $value = shift;
+
+    $value = _deaccent_value( $value );
+    $value =~ tr/'//d;
+
+    # replace all rejected charactes with space
+    $value =~ s/[^a-z0-9#]/ /g;
+
+    return $value
+}
+
+sub _deaccent_value {
+    my $value = shift;
+
+    # remove decorations and stem variations of single quotes
+    $value =~ tr[àáâãäåæçèéêëìíîïñòóôõöøùúûüýÿ’`\x92]
+                [aaaaaaaceeeeiiiinoooooouuuuyy'''];
+
+    return $value;
+}
+
+
 1;
 
 __END__

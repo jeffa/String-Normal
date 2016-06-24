@@ -106,7 +106,7 @@ sub transform {
 sub _tokenize_name {
     my ($value,$digits,$words) = @_;
 
-    $value = _scrub_value( $value );
+    $value = String::Normal::Type::_scrub_value( $value );
 
     # split tokens on more than just whitespace:
     # split digits from words but keep things like 3D and 1st combined,
@@ -127,29 +127,6 @@ sub _tokenize_name {
         }
     }
 }
-
-sub _scrub_value {
-    my $value = shift;
-
-    $value = _deaccent_value( $value );
-    $value =~ tr/'//d;
-
-    # replace all rejected charactes with space
-    $value =~ s/[^a-z0-9#]/ /g;
-
-    return $value
-}
-
-sub _deaccent_value {
-    my $value = shift;
-
-    # remove decorations and stem variations of single quotes
-    $value =~ tr[àáâãäåæçèéêëìíîïñòóôõöøùúûüýÿ’`\x92]
-                [aaaaaaaceeeeiiiinoooooouuuuyy'''];
-
-    return $value;
-}
-
 
 sub _mark_pairs {
     my $tokens = shift;

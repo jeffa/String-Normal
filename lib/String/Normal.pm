@@ -4,10 +4,21 @@ use warnings;
 our $VERSION = '0.01';
 
 use String::Normal::Type::Name;
+use String::Normal::Type::Address;
 
 sub new {
-    my $self = shift;
-    return bless {@_}, $self;
+    my $package = shift;
+    my $self = {@_};
+
+    if (!$self->{type} or $self->{type} eq 'name') {
+        $self->{normalizer} = String::Normal::Type::Name->new;
+    } elsif ($self->{type} eq 'address') {
+        $self->{normalizer} = String::Normal::Type::Address->new;
+    } else {
+        die "type $self->{type} is not implemented\n";
+    }
+
+    return bless $self, $package;
 }
 
 # currently only handles name types
@@ -22,12 +33,7 @@ sub transform {
     # strip out control chars except tabs, lf's, cr's, r single quote, mdash and ndash
     $value =~ s/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x91\x93-\x95\x98-\x9F]//g;
 
-    if (!$type or $type eq 'name') {
-        my $name = String::Normal::Type::Name->new;
-        return $name->transform( $value );
-    }
-
-    return "type $type is not implemented";
+    return $self->{normalizer}->transform( $value );
 }
 
 1;
