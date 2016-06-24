@@ -23,6 +23,15 @@ sub new {
 sub transform {
     my ($self,$value) = @_;
 
+    $value = lc( $value );
+
+    $value =~ tr/  //s;          # squeeze multiple spaces to one
+    $value =~ s/^ //;            # trim leading space
+    $value =~ s/ $//;            # trim trailing space
+
+    # strip out control chars except tabs, lf's, cr's, r single quote, mdash and ndash
+    $value =~ s/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F-\x91\x93-\x95\x98-\x9F]//g;
+
     # tokenize and stem
     my (@digits,@words);
     _tokenize_name( $value, \@digits, \@words );
