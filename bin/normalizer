@@ -29,7 +29,9 @@ if ($version) {
     exit;
 }
 
-die "--value is required\n" unless defined( $value );
+unless (defined( $value )) {
+    pod2usage({ -message => '--value is required', -exitval => 1, -verbose => 0 });
+}
 
 my $normalizer = String::Normal->new;
 print $normalizer->transform( $value, $type ), "\n";
