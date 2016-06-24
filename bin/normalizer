@@ -1,0 +1,101 @@
+#!/usr/bin/env perl 
+
+use strict;
+use warnings;
+
+use FindBin qw($Bin);
+use lib "$Bin/../lib";
+use String::Normal;
+
+use Safe;
+use Pod::Usage;
+use Getopt::Long;
+
+GetOptions (
+    'value=s'   => \my $value,
+    'type=s'    => \my $type,
+    'help'      => \my $help,
+    'man'       => \my $man,
+    'version'   => \my $version,
+);
+pod2usage( -verbose => 0 ) if defined $help;
+pod2usage( -verbose => 2 ) if $man;
+
+if ($version) {
+    print "$_\n" for 
+        "      String::Normal path: " . $INC{'Spreadsheet/HTML.pm'},
+        "   String::Normal version: $Spreadsheet::HTML::VERSION",
+    ;
+    exit;
+}
+
+die "--value is required\n" unless defined( $value );
+
+my $normalizer = String::Normal->new;
+print $normalizer->transform( $value, $type ), "\n";
+
+__END__
+=head1 NAME
+
+normalizer - transform strings into a normal form
+
+=head1 SYNOPSIS
+
+mktable method [options]
+
+ Options:
+   --value      value
+   --type       name,phone,city,address
+   --help       list usage for methods and parameters
+   --man        print man page
+   --version    show module path and version
+
+=head1 OPTIONS
+
+=over 8
+
+=item B<--value>
+
+The value to transform.
+
+  --value="The The"
+
+=item B<--type>
+
+The type of value: name, address, city, state, zip or phone. Defaults to name.
+
+=item B<--help>
+
+Shows synopsis and exits.
+
+=item B<--man>
+
+Prints the manual page and exits.
+
+=item B<--version>
+
+Prints the versions of the core modules used.
+
+=back
+
+=head1 EXAMPLES
+
+  mktable portrait --param file=data.xls > out.html
+
+  normalizer --value="Jones's & Sons Bakeries" --type=name
+
+  # name is the default type
+  normalizer --value="Jones's & Sons Bakeries"
+
+
+=head1 SEE ALSO
+
+=over 4
+
+=item L<String::Normal>
+
+The engine behind this script.
+
+=back
+
+=cut
