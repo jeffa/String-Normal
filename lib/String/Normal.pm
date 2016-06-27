@@ -17,6 +17,10 @@ sub new {
         $self->{normalizer} = String::Normal::Type::Phone->new;
     } elsif ($self->{type} eq 'state') {
         $self->{normalizer} = String::Normal::Type::State->new;
+    } elsif ($self->{type} eq 'city') {
+        $self->{normalizer} = String::Normal::Type::City->new;
+    } elsif ($self->{type} eq 'zip') {
+        $self->{normalizer} = String::Normal::Type::Zip->new;
     } else {
         die "type $self->{type} is not implemented\n";
     }
