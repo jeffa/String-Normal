@@ -8,6 +8,7 @@ WriteMakefile(
     AUTHOR           => q{Jeff Anderson <jeffa@cpan.org>},
     VERSION_FROM     => 'lib/String/Normal.pm',
     ABSTRACT_FROM    => 'lib/String/Normal.pm',
+    EXE_FILES        => [ 'bin/normalizer' ],
     LICENSE          => 'Artistic_2_0',
     PL_FILES         => {},
     MIN_PERL_VERSION => 5.006,
