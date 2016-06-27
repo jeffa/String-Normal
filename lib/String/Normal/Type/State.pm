@@ -2,15 +2,6 @@ package String::Normal::Type::State;
 use strict;
 use warnings;
 
-=head1 NAME
-
-String::Normal::Type::State;
-
-=head1 DESCRIPTION
-
-This package defines substitutions to be performed on state types.
-
-=cut
 our $us_codes = {
     ak => 'alaska',
     al => 'alabama',
@@ -97,4 +88,67 @@ our $to_country = {
     %{{ map { $_ => 'CA' } keys %$ca_codes }},
 };
 
+sub transform {
+    my ($self,$value) = @_;
+
+    if (length($value) > 2) {
+        # convert long name to short name (with potential invalidation)
+        $value = $by_long->{$value} || '';
+    }
+    elsif (! $by_short->{$value}) {
+        # invalidate short name
+        $value = '';
+    }
+
+    # now validate against country code
+    # TODO: contemplate moving country awareness to a higher level
+    #       if more fields require such validation (hint ... zipcodes)
+#    if ($values[$schema{country}] eq 'US') {
+#        $value = '' unless $us_codes->{$value};
+#    }
+#    elsif ($values[$schema{country}] eq 'CA') {
+#        $value = '' unless $ca_codes->{$value};
+#    }
+
+    if ($value) {
+        return $value;
+    }
+    else {
+        die "invalid state";
+    }
+
+}
+
+sub new {
+    my $self = shift;
+    return bless {@_}, $self;
+}
+
 1;
+
+__END__
+=head1 NAME
+
+String::Normal::Type::State;
+
+=head1 DESCRIPTION
+
+This package defines substitutions to be performed on state types.
+
+=head1 METHODS
+
+=over 4
+
+=item C<new( %params )>
+
+    my $name = String::Normal::Type::State->new;
+
+Creates a State type.
+
+=item C<transform( $value )>
+
+    my $new_value = $name->transform( $value );
+
+Transforms a value according to the rules of a State type.
+
+=back
