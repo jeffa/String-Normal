@@ -1,20 +1,3 @@
-package String::Normal::Type::Phone;
-use strict;
-use warnings;
-
-=head1 NAME
-
-String::Normal::Type::Phone;
-
-=head1 DESCRIPTION
-
-This package defines a set of valid North American
-telephone area codes used in phone validation.
-
-=cut
-
-# Valid areacodes in array form (not for lookup)
-my @codes = qw (
 201
 202
 203
@@ -398,12 +381,3 @@ my @codes = qw (
 985
 989
 999
-);
-
-# We need a hash for efficient lookup
-my %hash = map { $_ => '' } @codes;
-
-# Export the variable 'codes' as a reference to the hash
-our $codes = \%hash;
-
-1;

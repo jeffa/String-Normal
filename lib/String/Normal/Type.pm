@@ -2,6 +2,11 @@ package String::Normal::Type;
 use strict;
 use warnings;
 
+use String::Normal::Type::Name;
+use String::Normal::Type::Address;
+use String::Normal::Type::Phone;
+use String::Normal::Type::State;
+
 use FindBin qw($Bin);
 our $PATH = "$Bin/../lib/String/Normal/Type/";
 

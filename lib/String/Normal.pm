@@ -3,8 +3,7 @@ use strict;
 use warnings;
 our $VERSION = '0.01';
 
-use String::Normal::Type::Name;
-use String::Normal::Type::Address;
+use String::Normal::Type;
 
 sub new {
     my $package = shift;
@@ -14,6 +13,10 @@ sub new {
         $self->{normalizer} = String::Normal::Type::Name->new;
     } elsif ($self->{type} eq 'address') {
         $self->{normalizer} = String::Normal::Type::Address->new;
+    } elsif ($self->{type} eq 'phone') {
+        $self->{normalizer} = String::Normal::Type::Phone->new;
+    } elsif ($self->{type} eq 'state') {
+        $self->{normalizer} = String::Normal::Type::State->new;
     } else {
         die "type $self->{type} is not implemented\n";
     }
