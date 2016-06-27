@@ -29,11 +29,12 @@ sub transform {
         my $count = $address_stop->{middle}{$_} || '';
         (length $count and @tokens >= $count) ? () : $_;
     } @tokens;
+    @filtered = @tokens;
 
     # revert if we filtered words down to less than 2 tokens
     @filtered = @tokens if @filtered < 2;
 
-    $value = join ' ', @filtered;
+    $value = join ' ', @tokens;
 
 
     return $value;
@@ -57,6 +58,7 @@ sub stop {
 
     my %stop;
     for (String::Normal::Type::_slurp_file( 'address_stop.txt' )) {
+        next if /^#/;
         my ($word,$count) = split ',', $_;
         $count ||= 1;
 
