@@ -2,6 +2,7 @@ package String::Normal::Type::City;
 use strict;
 use warnings;
 use String::Normal::Type;
+use String::Normal::Config;
 
 our $address_stem;
 
@@ -23,7 +24,7 @@ sub transform {
 
 sub new {
     my $self = shift;
-    $address_stem = String::Normal::Type::Address->stem;
+    $address_stem = String::Normal::Config::AddressStem::_data();
     return bless {@_}, $self;
 }
 

@@ -1,16 +1,9 @@
-package String::Normal::Type::State;
+package String::Normal::Config::States;
 use strict;
 use warnings;
 
-=head1 NAME
+use String::Normal::Config;
 
-String::Normal::Type::State;
-
-=head1 DESCRIPTION
-
-This package defines substitutions to be performed on state types.
-
-=cut
 our $us_codes = {
     ak => 'alaska',
     al => 'alabama',
@@ -92,9 +85,28 @@ our $ca_codes = {
 our $by_short = { %$us_codes, %$ca_codes };
 our $by_long  = { reverse %$by_short };
 
-our $to_country = {
-    %{{ map { $_ => 'US' } keys %$us_codes }},
-    %{{ map { $_ => 'CA' } keys %$ca_codes }},
-};
+#our $to_country = {
+#    %{{ map { $_ => 'US' } keys %$us_codes }},
+#    %{{ map { $_ => 'CA' } keys %$ca_codes }},
+#};
+
+sub _data {
+    return {
+        us_codes => $us_codes,
+        ca_codes => $ca_codes,
+        by_short => $by_short,
+        by_long  => $by_long,
+    };
+}
+
+=head1 NAME
+
+String::Normal::Config::States;
+
+=head1 DESCRIPTION
+
+This package defines valid U.S. and Candadian codes.
+
+=cut
 
 1;

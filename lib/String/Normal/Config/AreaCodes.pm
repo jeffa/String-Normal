@@ -1,3 +1,36 @@
+package String::Normal::Config::AreaCodes;
+use strict;
+use warnings;
+
+use String::Normal::Config;
+
+
+sub _data {
+    my $file = shift;
+
+    my $fh;
+    if ($file) {
+        open $fh, $file or die "Can't read $file: $!\n";
+    } else {
+        $fh = *DATA;
+    }
+
+    chomp( my @codes = <$fh> );
+    return \@codes;
+}
+
+=head1 NAME
+
+String::Normal::Config::AreaCodes;
+
+=head1 DESCRIPTION
+
+This package defines valid U.S. and Candadian codes.
+
+=cut
+
+1;
+__DATA__
 201
 202
 203

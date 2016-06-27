@@ -1,3 +1,39 @@
+package String::Normal::Config::NameCompress;
+use strict;
+use warnings;
+
+use String::Normal::Config;
+
+sub _data {
+    my $file = shift;
+
+    my $fh;
+    if ($file) {
+        open $fh, $file or die "Can't read $file: $!\n";
+    } else {
+        $fh = *DATA;
+    }
+
+    my %compress;
+    for (String::Normal::Config::_expand_ranges( String::Normal::Config::_slurp( $fh ) )) {
+        String::Normal::Config::_attach( \%compress, split '-', $_ );
+    }
+
+    return \%compress;
+}
+
+=head1 NAME
+
+String::Normal::Config::NameCompress;
+
+=head1 DESCRIPTION
+
+This package defines substitutions to be performed on the name types.
+
+=cut
+
+1;
+__DATA__
 1-2-1
 1-2-3
 1-800 

@@ -2,6 +2,10 @@ package String::Normal::Type::Phone;
 use strict;
 use warnings;
 
+use String::Normal::Config::AreaCodes;
+
+our $codes;
+
 sub transform {
     my ($self,$value) = @_;
 
@@ -27,13 +31,9 @@ sub transform {
 
 sub new {
     my $self = shift;
+    $codes = String::Normal::Config::AreaCodes::_data();
     return bless {@_}, $self;
 }
-
-#sub codes {
-#    my ($self,$file) = @_;
-#    return String::Normal::Type::_slurp_file( $file || 'phone_validate.txt' );
-#}
 
 1;
 

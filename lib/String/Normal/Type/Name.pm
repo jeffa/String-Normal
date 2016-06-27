@@ -2,6 +2,7 @@ package String::Normal::Type::Name;
 use strict;
 use warnings;
 use String::Normal::Type;
+use String::Normal::Config;
 
 use Lingua::Stem;
 our $STEM;
@@ -50,49 +51,10 @@ sub transform {
 sub new {
     my $self = shift;
     $STEM = Lingua::Stem->new;
-    $STEM->add_exceptions( $self->stem );  #TODO: override default files
-    $name_stop     = $self->stop;
-    $name_compress = $self->compress;
+    $STEM->add_exceptions( String::Normal::Config::NameStem::_data );  #TODO: override default files
+    $name_stop     = String::Normal::Config::NameStop::_data;
+    $name_compress = String::Normal::Config::NameCompress::_data;
     return bless {@_}, $self;
-}
-
-sub stem {
-    my ($self,$file) = @_;
-    my %stem = String::Normal::Type::_slurp_file( $file || 'name_stem.txt' );
-    return \%stem;
-}
-
-sub stop {
-    my ($self,$file) = @_;
-
-    my %stop;
-    for (String::Normal::Type::_slurp_file( $file || 'name_stop.txt' )) {
-        my ($word,$count) = split ',', $_;
-        $count ||= 1;
-
-        if (substr( $word, 0, 1 ) eq '^') {
-            substr( $word, 0, 1 ) = '';
-            $stop{first}->{$word} = $count;
-        } elsif (substr( $word, -1, 1 ) eq '$') {
-            substr( $word, -1, 1 ) = '';
-            $stop{last}->{$word} = $count;
-        } else {
-            $stop{middle}->{$word} = $count;
-        }
-    }
-
-    return \%stop;
-}
-
-sub compress {
-    my ($self,$file) = @_;
-
-    my %compress;
-    for (String::Normal::Type::_expand_ranges( String::Normal::Type::_slurp_file( $file || 'name_compress.txt' ))) {
-        String::Normal::Type::_attach( \%compress, split '-', $_ );
-    }
-
-    return \%compress;
 }
 
 sub _tokenize_name {
@@ -176,7 +138,29 @@ This package defines substitutions to be performed on the name types.
 
     my $name = String::Normal::Type::Name->new;
 
-Creates a Name type.
+Creates a Name type. Accepts the following named parameters:
+
+=back
+
+=over 8
+
+=item * C<name_stem>
+
+=item * C<name_stop>
+
+=item * C<name_compress>
+
+=item * C<address_stem>
+
+=item * C<address_stop>
+
+=item * C<area_codes>
+
+=item * C<states>
+
+=back
+
+=over 4
 
 =item C<transform( $value )>
 
@@ -184,63 +168,4 @@ Creates a Name type.
 
 Transforms a value according to the rules of a Name type.
 
-=item C<stem( %params )>
-
-    my %hash = String::Normal::Type::Name->stem(
-        file => '/path/to/name_stem.txt',
-    );
-
-Produces stem and stop list for Name types. Accepts the following named parameters:
-
 =back
-
-=over 8
-
-=item * C<file>
-
-Path to stem file.
-
-=back
-
-=over 4
-
-=item C<stop( %params )>
-
-    my %hash = String::Normal::Type::Name->stop(
-        file => '/path/to/name_stop.txt',
-    );
-
-Produces stop list for Name types. Accepts the following named parameters:
-
-=back
-
-=over 8
-
-=item * C<file>
-
-Path to stop file.
-
-=back
-
-=over 4
-
-=item C<compress( %params )>
-
-    my %hash = String::Normal::Type::Name->compress(
-        file => '/path/to/name_compress.txt',
-    );
-
-Produces compress list for Name types. Accepts the following named parameters:
-
-=back
-
-=over 8
-
-=item * C<file>
-
-Path to compress file.
-
-=back
-
-=cut
-

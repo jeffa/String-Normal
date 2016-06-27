@@ -1,3 +1,35 @@
+package String::Normal::Config::NameStem;
+use strict;
+use warnings;
+
+use String::Normal::Config;
+
+sub _data {
+    my $file = shift;
+
+    my $fh;
+    if ($file) {
+        open $fh, $file or die "Can't read $file: $!\n";
+    } else {
+        $fh = *DATA;
+    }
+
+    my %stem = String::Normal::Config::_slurp( $fh );
+    return \%stem;
+}
+
+=head1 NAME
+
+String::Normal::Config::NameStem;
+
+=head1 DESCRIPTION
+
+This package defines substitutions to be performed on the name types.
+
+=cut
+
+1;
+__DATA__
 # no
 @ at
 academy acad

@@ -2,6 +2,7 @@ package String::Normal::Type::Address;
 use strict;
 use warnings;
 use String::Normal::Type;
+use String::Normal::Config;
 
 our $address_stem;
 our $address_stop;
@@ -42,39 +43,12 @@ sub transform {
 
 sub new {
     my $self = shift;
-    $address_stem = $self->stem;
-    $address_stop = $self->stop;
+    $address_stem = String::Normal::Config::AddressStem::_data();
+    $address_stop = String::Normal::Config::AddressStop::_data();
     return bless {@_}, $self;
 }
 
-sub stem {
-    my ($self,$file) = @_;
-    my %stem = String::Normal::Type::_slurp_file( $file || 'address_stem.txt' );
-    return \%stem;
-}
-
-sub stop {
-    my ($self,$file) = @_;
-
-    my %stop;
-    for (String::Normal::Type::_slurp_file( 'address_stop.txt' )) {
-        next if /^#/;
-        my ($word,$count) = split ',', $_;
-        $count ||= 1;
-
-        if (substr( $word, 0, 1 ) eq '^') {
-            substr( $word, 0, 1 ) = '';
-            $stop{first}->{$word} = $count;
-        } elsif (substr( $word, -1, 1 ) eq '$') {
-            substr( $word, -1, 1 ) = '';
-            $stop{last}->{$word} = $count;
-        } else {
-            $stop{middle}->{$word} = $count;
-        }
-    }
-
-    return \%stop;
-}
+1;
 
 =head1 NAME
 
@@ -101,44 +75,6 @@ Creates a Address type.
 
 Transforms a value according to the rules of a Address type.
 
-=item C<stem( %params )>
-
-    my %hash = String::Normal::Type::Address->stem(
-        file => '/path/to/name_stem.txt',
-    );
-
-Produces stem and stop list for Address types. Accepts the following named parameters:
-
-=back
-
-=over 8
-
-=item * C<file>
-
-Path to stem file.
-
-=back
-
-=over 4
-
-=item C<stop( %params )>
-
-    my %hash = String::Normal::Type::Address->stop(
-        file => '/path/to/name_stop.txt',
-    );
-
-Produces stop list for Address types. Accepts the following named parameters:
-
-=back
-
-=over 8
-
-=item * C<file>
-
-Path to stop file.
-
 =back
 
 =cut
-
-1;
