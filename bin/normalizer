@@ -33,7 +33,7 @@ unless (defined( $value )) {
     pod2usage({ -message => '--value is required', -exitval => 1, -verbose => 0 });
 }
 
-my $normalizer = String::Normal->new;
+my $normalizer = String::Normal->new( type => $type );
 print $normalizer->transform( $value, $type ), "\n";
 
 __END__
