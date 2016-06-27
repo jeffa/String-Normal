@@ -91,23 +91,23 @@ and city types of a record.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::Name->new;
+    my $name = String::Normal::Type::Address->new;
 
-Creates a Name type.
+Creates a Address type.
 
 =item C<transform( $value )>
 
     my $new_value = $name->transform( $value );
 
-Transforms a value according to the rules of a Name type.
+Transforms a value according to the rules of a Address type.
 
 =item C<stem( %params )>
 
-    my %hash = String::Normal::Type::Name->stem(
+    my %hash = String::Normal::Type::Address->stem(
         file => '/path/to/name_stem.txt',
     );
 
-Produces stem and stop list for Name types. Accepts the following named parameters:
+Produces stem and stop list for Address types. Accepts the following named parameters:
 
 =back
 
@@ -123,11 +123,11 @@ Path to stem file.
 
 =item C<stop( %params )>
 
-    my %hash = String::Normal::Type::Name->stop(
+    my %hash = String::Normal::Type::Address->stop(
         file => '/path/to/name_stop.txt',
     );
 
-Produces stop list for Name types. Accepts the following named parameters:
+Produces stop list for Address types. Accepts the following named parameters:
 
 =back
 
