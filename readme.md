@@ -7,7 +7,23 @@ Synopsis
 ```perl
 use String::Normal;
 
-my $normalizer = String::Normal->new;
+my $normalizer = String::Normal->new( type => 'name' );
+print $normalizer->transform( 'Jones & Sons Bakeries' );     # bakeri jone son
+
+$normalizer = String::Normal->new( type => 'address' );
+print $normalizer->transform( '123 Main Street Suite A47' ); # 123 main st
+
+$normalizer = String::Normal->new( type => 'phone' );
+print $normalizer->transform( '(818) 423-7750' );            # 8184237750
+
+$normalizer = String::Normal->new( type => 'city' );
+print $normalizer->transform( 'Los Angeles' );               # los angeles
+
+$normalizer = String::Normal->new( type => 'state' );
+print $normalizer->transform( 'California' );                # ca
+
+$normalizer = String::Normal->new( type => 'zip' );
+print $normalizer->transform( '90292' );                     # 90292
 ```
 
 Installation
