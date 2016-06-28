@@ -12,6 +12,7 @@ use Pod::Usage;
 use Getopt::Long;
 
 GetOptions (
+    'file=s'    => \my $file,
     'value=s'   => \my $value,
     'type=s'    => \my $type,
     'help'      => \my $help,
@@ -29,12 +30,18 @@ if ($version) {
     exit;
 }
 
-unless (defined( $value )) {
-    pod2usage({ -message => '--value is required', -exitval => 1, -verbose => 0 });
+unless (defined( $value ) or defined( $file )) {
+    pod2usage({ -message => '--value or --file is required', -exitval => 1, -verbose => 0 });
 }
 
 my $normalizer = String::Normal->new( type => $type );
-print $normalizer->transform( $value, $type ), "\n";
+
+if ($file) {
+    open my $fh, $file or die "Cannot open $file: $!\n";
+    print $normalizer->transform( $_ ), "\n" while <$fh>;
+} else {
+    print $normalizer->transform( $value ), "\n";
+}
 
 __END__
 =head1 NAME
@@ -47,7 +54,7 @@ mktable method [options]
 
  Options:
    --value      value
-   --type       business,phone,city,address
+   --type       business,address,city,state,zip,phone,title
    --help       list usage for methods and parameters
    --man        print man page
    --version    show module path and version
@@ -62,9 +69,17 @@ The value to transform.
 
   --value="The The"
 
+=item B<--file>
+
+Text file containing one value per line.
+
+  --file=values.txt
+
 =item B<--type>
 
-The type of value: business, address, city, state, zip or phone. Defaults to business.
+The type of value: business, address, city, state, zip, phone or title. Defaults to business.
+
+  --type=address
 
 =item B<--help>
 

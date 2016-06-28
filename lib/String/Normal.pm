@@ -21,6 +21,8 @@ sub new {
         $self->{normalizer} = String::Normal::Type::City->new;
     } elsif ($self->{type} eq 'zip') {
         $self->{normalizer} = String::Normal::Type::Zip->new;
+    } elsif ($self->{type} eq 'title') {
+        $self->{normalizer} = String::Normal::Type::Title->new;
     } else {
         die "type $self->{type} is not implemented\n";
     }

@@ -9,6 +9,8 @@ use String::Normal::Config::AddressStem;
 use String::Normal::Config::AddressStop;
 use String::Normal::Config::States;
 use String::Normal::Config::AreaCodes;
+use String::Normal::Config::TitleStem;
+use String::Normal::Config::TitleStop;
 
 sub _slurp {
     my $fh   = shift;
