@@ -44,7 +44,7 @@ sub transform {
     # If we filtered all words out, "revert" to the full array of stemmed tokens.
     @filtered = @words unless @filtered;
 
-    # The canon biz is the sorted filtered stemmed words plus the original digits.
+    # The canon name is the sorted filtered stemmed words plus the original digits.
     return join ' ', sort @digits, @filtered;
 }
 
