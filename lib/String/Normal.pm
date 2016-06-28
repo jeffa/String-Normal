@@ -97,13 +97,15 @@ Constructs object. Accepts the following named parameters:
 Available types: business, address, phone, city, state and zip.
 Defaults to C<business>.
 
+  my $normalizer = String::Normal->new( type => 'city' );
+
 =back
 
 =over 4
 
 =item C<transform( $word )>
 
-  my $new = $normalizer->transform( "Donie's Bagels & Donuts" );
+  my $scalar = $normalizer->transform( "Donie's Bagels & Donuts" );
 
 Normalizes word based on given type.
 

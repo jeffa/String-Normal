@@ -82,8 +82,6 @@ Prints the versions of the core modules used.
 
 =head1 EXAMPLES
 
-  mktable portrait --param file=data.xls > out.html
-
   normalizer --value="Jones's & Sons Bakeries" --type=business
 
   # business is the default type
