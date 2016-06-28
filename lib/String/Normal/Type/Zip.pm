@@ -39,7 +39,7 @@ String::Normal::Type::Zip;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on state types.
+This package defines substitutions to be performed on zip types.
 
 =head1 METHODS
 
@@ -47,13 +47,13 @@ This package defines substitutions to be performed on state types.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::Zip->new;
+    my $zip = String::Normal::Type::Zip->new;
 
 Creates a Zip type.
 
 =item C<transform( $value )>
 
-    my $new_value = $name->transform( $value );
+    my $new_value = $zip->transform( $value );
 
 Transforms a value according to the rules of a Zip type.
 

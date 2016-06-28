@@ -2,9 +2,9 @@ package String::Normal::Config;
 use strict;
 use warnings;
 
-use String::Normal::Config::NameStem;
-use String::Normal::Config::NameStop;
-use String::Normal::Config::NameCompress;
+use String::Normal::Config::BusinessStem;
+use String::Normal::Config::BusinessStop;
+use String::Normal::Config::BusinessCompress;
 use String::Normal::Config::AddressStem;
 use String::Normal::Config::AddressStop;
 use String::Normal::Config::States;

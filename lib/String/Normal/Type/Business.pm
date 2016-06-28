@@ -1,4 +1,4 @@
-package String::Normal::Type::Name;
+package String::Normal::Type::Business;
 use strict;
 use warnings;
 use String::Normal::Type;
@@ -6,15 +6,15 @@ use String::Normal::Config;
 
 use Lingua::Stem;
 our $STEM;
-our $name_stop;
-our $name_compress;
+our $biz_stop;
+our $biz_compress;
 
 sub transform {
     my ($self,$value) = @_;
 
     # tokenize and stem
     my (@digits,@words);
-    _tokenize_name( $value, \@digits, \@words );
+    _tokenize_value( $value, \@digits, \@words );
     $STEM->stem_in_place( @words );
 
     # Remove "special" beginning and/or ending stopwords, if such words are present
@@ -23,10 +23,10 @@ sub transform {
         # make a copy of @words and whittle it down
         my @copy = @words;
         my $count;
-        if ($count = $name_stop->{first}{$copy[0]}) {
+        if ($count = $biz_stop->{first}{$copy[0]}) {
             shift @copy if @copy >= $count;
         }
-        if (@copy and $count = $name_stop->{last}{$copy[-1]}) {
+        if (@copy and $count = $biz_stop->{last}{$copy[-1]}) {
             pop @copy if @copy >= $count;
         }
 
@@ -37,27 +37,27 @@ sub transform {
     # Remove all middle stop words that are safe to remove, based on the number of
     # tokens, of course.
     my @filtered = map {
-        my $count = $name_stop->{middle}{$_} || '';
+        my $count = $biz_stop->{middle}{$_} || '';
         (length $count and @words >= $count) ? () : $_;
     } @words;
 
     # If we filtered all words out, "revert" to the full array of stemmed tokens.
     @filtered = @words unless @filtered;
 
-    # The canon name is the sorted filtered stemmed words plus the original digits.
+    # The canon biz is the sorted filtered stemmed words plus the original digits.
     return join ' ', sort @digits, @filtered;
 }
 
 sub new {
     my $self = shift;
     $STEM = Lingua::Stem->new;
-    $STEM->add_exceptions( String::Normal::Config::NameStem::_data );  #TODO: override default files
-    $name_stop     = String::Normal::Config::NameStop::_data;
-    $name_compress = String::Normal::Config::NameCompress::_data;
+    $STEM->add_exceptions( String::Normal::Config::BusinessStem::_data );  #TODO: override default files
+    $biz_stop     = String::Normal::Config::BusinessStop::_data;
+    $biz_compress = String::Normal::Config::BusinessCompress::_data;
     return bless {@_}, $self;
 }
 
-sub _tokenize_name {
+sub _tokenize_value {
     my ($value,$digits,$words) = @_;
 
     $value = String::Normal::Type::_scrub_value( $value );
@@ -87,9 +87,9 @@ sub _mark_pairs {
     my @pairs = ();
     for my $i (0 .. $#$tokens) {
         my $token = $tokens->[$i];
-        next unless exists $name_compress->{$token};
+        next unless exists $biz_compress->{$token};
         next if $i + 1 > $#$tokens;
-        my $end = _walk_tree( $i + 1, $tokens, $name_compress->{$token} );
+        my $end = _walk_tree( $i + 1, $tokens, $biz_compress->{$token} );
         if ($end) {
             push @pairs, [$i,$end];
             $i = $end;
@@ -124,11 +124,11 @@ sub _compress_list {
 __END__
 =head1 NAME
 
-String::Normal::Type::Name;
+String::Normal::Type::Business;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on the name types.
+This package defines substitutions to be performed on the business types.
 
 =head1 METHODS
 
@@ -136,19 +136,19 @@ This package defines substitutions to be performed on the name types.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::Name->new;
+    my $biz = String::Normal::Type::Business->new;
 
-Creates a Name type. Accepts the following named parameters:
+Creates a Business type. Accepts the following named parameters:
 
 =back
 
 =over 8
 
-=item * C<name_stem>
+=item * C<business_stem>
 
-=item * C<name_stop>
+=item * C<business_stop>
 
-=item * C<name_compress>
+=item * C<business_compress>
 
 =item * C<address_stem>
 
@@ -164,8 +164,8 @@ Creates a Name type. Accepts the following named parameters:
 
 =item C<transform( $value )>
 
-    my $new_value = $name->transform( $value );
+    my $new_value = $biz->transform( $value );
 
-Transforms a value according to the rules of a Name type.
+Transforms a value according to the rules of a Business type.
 
 =back

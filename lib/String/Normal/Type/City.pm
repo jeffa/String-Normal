@@ -37,7 +37,7 @@ String::Normal::Type::City;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on state types.
+This package defines substitutions to be performed on city types.
 
 =head1 METHODS
 
@@ -45,13 +45,13 @@ This package defines substitutions to be performed on state types.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::City->new;
+    my $city = String::Normal::Type::City->new;
 
 Creates a City type.
 
 =item C<transform( $value )>
 
-    my $new_value = $name->transform( $value );
+    my $new_value = $city->transform( $value );
 
 Transforms a value according to the rules of a City type.
 

@@ -2,7 +2,7 @@ package String::Normal::Type;
 use strict;
 use warnings;
 
-use String::Normal::Type::Name;
+use String::Normal::Type::Business;
 use String::Normal::Type::Address;
 use String::Normal::Type::Phone;
 use String::Normal::Type::State;
@@ -36,7 +36,7 @@ sub _deaccent_value {
 __END__
 =head1 NAME
 
-String::Normal::Type::Name;
+String::Normal::Type::Business;
 
 =head1 DESCRIPTION
 

@@ -1,4 +1,4 @@
-package String::Normal::Config::NameStem;
+package String::Normal::Config::BusinessStem;
 use strict;
 use warnings;
 
@@ -20,11 +20,11 @@ sub _data {
 
 =head1 NAME
 
-String::Normal::Config::NameStem;
+String::Normal::Config::BusinessStem;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on the name types.
+This package defines substitutions to be performed on the business types.
 
 =cut
 

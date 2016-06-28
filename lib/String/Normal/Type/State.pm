@@ -60,13 +60,13 @@ This package defines substitutions to be performed on state types.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::State->new;
+    my $state = String::Normal::Type::State->new;
 
 Creates a State type.
 
 =item C<transform( $value )>
 
-    my $new_value = $name->transform( $value );
+    my $new_value = $state->transform( $value );
 
 Transforms a value according to the rules of a State type.
 

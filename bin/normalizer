@@ -47,7 +47,7 @@ mktable method [options]
 
  Options:
    --value      value
-   --type       name,phone,city,address
+   --type       business,phone,city,address
    --help       list usage for methods and parameters
    --man        print man page
    --version    show module path and version
@@ -64,7 +64,7 @@ The value to transform.
 
 =item B<--type>
 
-The type of value: name, address, city, state, zip or phone. Defaults to name.
+The type of value: business, address, city, state, zip or phone. Defaults to business.
 
 =item B<--help>
 
@@ -84,11 +84,12 @@ Prints the versions of the core modules used.
 
   mktable portrait --param file=data.xls > out.html
 
-  normalizer --value="Jones's & Sons Bakeries" --type=name
+  normalizer --value="Jones's & Sons Bakeries" --type=business
 
-  # name is the default type
+  # business is the default type
   normalizer --value="Jones's & Sons Bakeries"
 
+  normalizer --value="123 Main Street" --type=address
 
 =head1 SEE ALSO
 

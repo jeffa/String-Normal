@@ -9,8 +9,8 @@ sub new {
     my $package = shift;
     my $self = {@_};
 
-    if (!$self->{type} or $self->{type} eq 'name') {
-        $self->{normalizer} = String::Normal::Type::Name->new;
+    if (!$self->{type} or $self->{type} eq 'business') {
+        $self->{normalizer} = String::Normal::Type::Business->new;
     } elsif ($self->{type} eq 'address') {
         $self->{normalizer} = String::Normal::Type::Address->new;
     } elsif ($self->{type} eq 'phone') {
@@ -28,7 +28,7 @@ sub new {
     return bless $self, $package;
 }
 
-# currently only handles name types
+# currently only handles business types
 sub transform {
     my ($self,$value,$type) = @_;
 
@@ -54,7 +54,7 @@ String::Normal - Transform strings into a normal form.
 
   use String::Normal;
 
-  my $normalizer = String::Normal->new( type => 'name' );
+  my $normalizer = String::Normal->new( type => 'business' );
   print $normalizer->transform( 'Jones & Sons Bakeries' );     # bakeri jone son
 
   $normalizer = String::Normal->new( type => 'address' );
@@ -94,8 +94,8 @@ Constructs object. Accepts the following named parameters:
 
 =item * C<type>
 
-Available types: name, address, phone, city, state and zip.
-Defaults to C<name>.
+Available types: business, address, phone, city, state and zip.
+Defaults to C<business>.
 
 =back
 

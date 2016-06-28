@@ -24,7 +24,7 @@ String::Normal::Config::AddressStem;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on the name types.
+This package defines removals to be performed on the address type.
 
 =cut
 

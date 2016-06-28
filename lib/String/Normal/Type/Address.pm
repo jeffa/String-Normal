@@ -65,13 +65,13 @@ and city types of a record.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::Address->new;
+    my $address = String::Normal::Type::Address->new;
 
 Creates a Address type.
 
 =item C<transform( $value )>
 
-    my $new_value = $name->transform( $value );
+    my $new_value = $address->transform( $value );
 
 Transforms a value according to the rules of a Address type.
 

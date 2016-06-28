@@ -53,14 +53,14 @@ telephone area codes used in phone validation.
 
 =item C<new( %params )>
 
-    my $name = String::Normal::Type::Name->new;
+    my $phone = String::Normal::Type::Phone->new;
 
-Creates a Name type.
+Creates a Business type.
 
 =item C<transform( $value )>
 
-    my $new_value = $name->transform( $value );
+    my $new_value = $phone->transform( $value );
 
-Transforms a value according to the rules of a Name type.
+Transforms a value according to the rules of a Business type.
 
 =back
