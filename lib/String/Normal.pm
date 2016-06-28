@@ -52,8 +52,25 @@ String::Normal - Transform strings into a normal form.
 
 =head1 SYNOPSIS
 
-    use String::Normal;
-    my $normalizer = String::Normal->new;
+  use String::Normal;
+
+  my $normalizer = String::Normal->new( type => 'name' );
+  print $normalizer->transform( 'Jones & Sons Bakeries' );     # bakeri jone son
+
+  $normalizer = String::Normal->new( type => 'address' );
+  print $normalizer->transform( '123 Main Street Suite A47' ); # 123 main st
+
+  $normalizer = String::Normal->new( type => 'phone' );
+  print $normalizer->transform( '(818) 423-7750' );            # 8184237750
+
+  $normalizer = String::Normal->new( type => 'city' );
+  print $normalizer->transform( 'Los Angeles' );               # los angeles
+
+  $normalizer = String::Normal->new( type => 'state' );
+  print $normalizer->transform( 'California' );                # ca
+
+  $normalizer = String::Normal->new( type => 'zip' );
+  print $normalizer->transform( '90292' );                     # 90292
 
 =head1 DESCRIPTION
 
@@ -75,9 +92,10 @@ Constructs object. Accepts the following named parameters:
 
 =over 8
 
-=item * C<name_stem>
+=item * C<type>
 
-Placeholder.
+Available types: name, address, phone, city, state and zip.
+Defaults to C<name>.
 
 =back
 
@@ -87,7 +105,7 @@ Placeholder.
 
   my $new = $normalizer->transform( "Donie's Bagels & Donuts" );
 
-Normalizes word.
+Normalizes word based on given type.
 
 =back
 
@@ -97,7 +115,9 @@ Jeff Anderson, C<< <jeffa at cpan.org> >>
 
 =head1 BUGS AND LIMITATIONS
 
-Please report any bugs or feature requests to either
+Documentation is currently light and needs to be expanded.
+
+Please report any bugs or feature requests to either:
 
 =over 4
 
