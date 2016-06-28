@@ -34,10 +34,7 @@ sub transform {
     # revert if we filtered words down to less than 2 tokens
     @filtered = @tokens if @filtered < 2;
 
-    $value = join ' ', @tokens;
-
-
-    return $value;
+    return join ' ', @filtered;
 }
 
 sub new {
