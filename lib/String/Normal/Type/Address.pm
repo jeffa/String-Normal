@@ -30,7 +30,6 @@ sub transform {
         my $count = $address_stop->{middle}{$_} || '';
         (length $count and @tokens >= $count) ? () : $_;
     } @tokens;
-    @filtered = @tokens;
 
     # revert if we filtered words down to less than 2 tokens
     @filtered = @tokens if @filtered < 2;
