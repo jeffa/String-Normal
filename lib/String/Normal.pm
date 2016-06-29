@@ -10,19 +10,19 @@ sub new {
     my $self = {@_};
 
     if (!$self->{type} or $self->{type} eq 'business') {
-        $self->{normalizer} = String::Normal::Type::Business->new;
+        $self->{normalizer} = String::Normal::Type::Business->new( @_ );
     } elsif ($self->{type} eq 'address') {
-        $self->{normalizer} = String::Normal::Type::Address->new;
+        $self->{normalizer} = String::Normal::Type::Address->new( @_ );
     } elsif ($self->{type} eq 'phone') {
-        $self->{normalizer} = String::Normal::Type::Phone->new;
+        $self->{normalizer} = String::Normal::Type::Phone->new( @_ );
     } elsif ($self->{type} eq 'state') {
-        $self->{normalizer} = String::Normal::Type::State->new;
+        $self->{normalizer} = String::Normal::Type::State->new( @_ );
     } elsif ($self->{type} eq 'city') {
-        $self->{normalizer} = String::Normal::Type::City->new;
+        $self->{normalizer} = String::Normal::Type::City->new( @_ );
     } elsif ($self->{type} eq 'zip') {
-        $self->{normalizer} = String::Normal::Type::Zip->new;
+        $self->{normalizer} = String::Normal::Type::Zip->new( @_ );
     } elsif ($self->{type} eq 'title') {
-        $self->{normalizer} = String::Normal::Type::Title->new;
+        $self->{normalizer} = String::Normal::Type::Title->new( @_ );
     } else {
         die "type $self->{type} is not implemented\n";
     }
@@ -74,11 +74,127 @@ String::Normal - Transform strings into a normal form.
   $normalizer = String::Normal->new( type => 'zip' );
   print $normalizer->transform( '90292' );                     # 90292
 
+=head1 CLI TOOLS
+
+=over 4
+
+=item * C<normalizer>
+
+Quickly transform values without writing a script:
+
+  $ normalizer --value='Jones & Sons Bakeries'
+
+  $ normalizer --value='Los Angeles' --type='city'
+
+  $ normalizer --file=addresses.txt --type=address
+
+=back
+
 =head1 DESCRIPTION
 
 THIS MODULE IS AN ALPHA RELEASE!
 
-Normalize your strings.
+Normalize your strings. Consider:
+
+    Bary & Sons' Bakery
+    Bary's & Sons Bakeries
+    Bary's and Sons' Bakeries
+
+These are business names as potentialy found in business listings. 
+When each of these values is passed to C<transform()> the return value
+will be "bakeri bari son." This is accomplished by a number of transformation
+rules, found in the respective C<Type> class:
+
+=over 4
+
+=item * L<String::Normal::Type::Business>
+
+Rules for business name listings, such as "Bary's Bakery"
+
+=item * L<String::Normal::Type::Address>
+
+Rules for business address listings, such as "123 Main Street Suite A"
+
+=item * L<String::Normal::Type::City>
+
+Rules for names of cities.
+
+=item * L<String::Normal::Type::State>
+
+Rules for US and Canadian state codes.
+
+=item * L<String::Normal::Type::Zip>
+
+Rules for US and Canadian zip codes.
+
+=item * L<String::Normal::Type::Phone>
+
+Rules for US area and exchange phone codes.
+
+=item * L<String::Normal::Type::Title>
+
+Rules for movie, film and television show titles.
+
+=back
+
+The movitation for such transformation is to identify duplicates when combining
+multiple digest feeds into a master feed. This transformation (called normalization
+here) was designed with the need to identify and match duplicate business listings,
+but can be used to match duplicated from other sources as well, such as movie, film
+and television show titles.
+
+Each type uses data found in a respective Config class:
+
+=over 4
+
+=item * L<String::Normal::Config::BusinessStop>
+
+Contains stop words to be removed from business names.
+
+=item * L<String::Normal::Config::BusinessStem>
+
+Stem words are transformed into some normal form, business types
+use L<Lingua::Stem> with some customizations.
+
+=item * L<String::Normal::Config::BusinessCompress>
+
+Compress words are combined into one word. Consider:
+
+    K*Mart
+    K-Mart
+    K Mart
+    Kmart
+
+These are all "compressed" into the value C<kmart>.
+
+=item * L<String::Normal::Config::AddressStop>
+
+Contains stop words to be removed from addresses.
+
+=item * L<String::Normal::Config::AddressStem>
+
+Transforms into some normal form, but does use L<Lingua::Stem>.
+
+=item * L<String::Normal::Config::State>
+
+Valide US and Canadian state codes.
+
+=item * L<String::Normal::Config::AreaCodes>
+
+Valid US area codes.
+
+=item * L<String::Normal::Config::TitleStop>
+
+Contains stop words to be removed from titles.
+
+=item * L<String::Normal::Config::TitleStem>
+
+Transforms into some normal form, but does use L<Lingua::Stem>.
+
+=back
+
+All Config classes can be overriden by specifying your own
+custom text files. See C<new()> below:
 
 =head1 METHODS
 
@@ -96,10 +212,10 @@ Constructs object. Accepts the following named parameters:
 
 =item * C<type>
 
-Available types: business, address, phone, city, state and zip.
+Available types: business, address, phone, city, state, zip and title.
 Defaults to C<business>.
 
-  my $normalizer = String::Normal->new( type => 'city' );
+  my $normalizer = String::Normal->new( type => 'title' );
 
 =back
 
@@ -107,7 +223,7 @@ Defaults to C<business>.
 
 =item C<transform( $word )>
 
-  my $scalar = $normalizer->transform( "Donie's Bagels & Donuts" );
+  my $scalar = $normalizer->transform( 'Alien 1979 1080p.avi' );
 
 Normalizes word based on given type.
 
