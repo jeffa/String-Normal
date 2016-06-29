@@ -9,7 +9,7 @@ our $codes;
 sub transform {
     my ($self,$value) = @_;
 
-    # Replace phone letters with numbers and remove non-digits
+    # Replace phone letters with numbers and remove non-digits (credit Ray Toal)
     $value =~ tr/a-z/22233344455566677778889999/;
     $value =~ s/\D//g;
 
