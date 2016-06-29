@@ -58,12 +58,7 @@ pt1
 pt2
 cd1
 cd2
+a
 an
 and
-by
-from
-for
-in
-of
 the
-to

@@ -19,7 +19,7 @@ sub transform {
     # tokenize and stem
     my @tokens = ();
     for my $token (split ' ', $value) {
-        $token = defined( $title_stem->{$token} ) ? $title_stem->{$token} : $token;
+        #$token = defined( $title_stem->{$token} ) ? $title_stem->{$token} : $token;
         push @tokens, $token;
     }
 
@@ -34,7 +34,7 @@ sub transform {
     my @copy = @filtered;
     $STEM->stem_in_place( @copy );
     for my $i (0 .. $#copy) {
-        $filtered[$i] = $copy[$i] if $copy[$i] ne '';
+        $filtered[$i] = $copy[$i] unless $filtered[$i] =~ /\d/;
     }
 
     return join ' ', @filtered;
