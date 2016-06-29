@@ -167,6 +167,9 @@ Compress words are combined into one word. Consider:
 
 These are all "compressed" into the value C<kmart>.
 
+Business values are first compressed, then stemmed via L<Lingua::Stem>
+(with customizations) and finally stop worded.
+
 =item * L<String::Normal::Config::AddressStop>
 
 Contains stop words to be removed from addresses.
@@ -174,6 +177,8 @@ Contains stop words to be removed from addresses.
 =item * L<String::Normal::Config::AddressStem>
 
 Transforms into some normal form, but does not use L<Lingua::Stem>.
+
+Address values are first stemmed with a simple substitution and then finally stop worded.
 
 =item * L<String::Normal::Config::State>
 
@@ -189,7 +194,9 @@ Contains stop words to be removed from titles.
 
 =item * L<String::Normal::Config::TitleStem>
 
-Transforms into some normal form, but does not use L<Lingua::Stem>.
+Transforms into some normal form, via L<Lingua::Stem> with no cusomizations.
+
+Title values are stop worded first, then stemmed.
 
 =back
 
