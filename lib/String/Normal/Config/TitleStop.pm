@@ -5,11 +5,11 @@ use warnings;
 use String::Normal::Config;
 
 sub _data {
-    my $file = shift;
+    my %params = @_;
 
     my $fh;
-    if ($file) {
-        open $fh, $file or die "Can't read $file: $!\n";
+    if ($params{title_stop}) {
+        open $fh, $params{title_stop} or die "Can't read '$params{title_stop}' $!\n";
     } else {
         $fh = *DATA;
     }

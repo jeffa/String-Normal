@@ -24,7 +24,7 @@ sub transform {
 
 sub new {
     my $self = shift;
-    $address_stem = String::Normal::Config::AddressStem::_data();
+    $address_stem = String::Normal::Config::AddressStem::_data( @_ );
     return bless {@_}, $self;
 }
 

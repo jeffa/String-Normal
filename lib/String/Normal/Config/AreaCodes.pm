@@ -6,11 +6,11 @@ use String::Normal::Config;
 
 
 sub _data {
-    my $file = shift;
+    my %params = @_;
 
     my $fh;
-    if ($file) {
-        open $fh, $file or die "Can't read $file: $!\n";
+    if ($params{area_codes}) {
+        open $fh, $params{area_codes} or die "Can't read '$params{area_codes}' $!\n";
     } else {
         $fh = *DATA;
     }

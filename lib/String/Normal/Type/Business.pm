@@ -51,9 +51,9 @@ sub transform {
 sub new {
     my $self = shift;
     $STEM = Lingua::Stem->new;
-    $STEM->add_exceptions( String::Normal::Config::BusinessStem::_data );  #TODO: override default files
-    $biz_stop     = String::Normal::Config::BusinessStop::_data;
-    $biz_compress = String::Normal::Config::BusinessCompress::_data;
+    $STEM->add_exceptions( String::Normal::Config::BusinessStem::_data( @_ ) );  #TODO: override default files
+    $biz_stop     = String::Normal::Config::BusinessStop::_data( @_ );
+    $biz_compress = String::Normal::Config::BusinessCompress::_data( @_ );
     return bless {@_}, $self;
 }
 

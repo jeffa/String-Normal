@@ -31,7 +31,7 @@ sub transform {
 
 sub new {
     my $self = shift;
-    $codes = String::Normal::Config::AreaCodes::_data();
+    $codes = String::Normal::Config::AreaCodes::_data( @_ );
     return bless {@_}, $self;
 }
 

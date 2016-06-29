@@ -39,7 +39,7 @@ sub transform {
 
 sub new {
     my $self = shift;
-    $codes = String::Normal::Config::States::_data();
+    $codes = String::Normal::Config::States::_data( @_ );
     return bless {@_}, $self;
 }
 

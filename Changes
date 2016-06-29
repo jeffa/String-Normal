@@ -2,6 +2,7 @@ Revision history for String-Normal
 
 0.02
     - added Title type
+    - configs can be overriden via file args
     - normalizer takes --file arg
     - better documentation
 

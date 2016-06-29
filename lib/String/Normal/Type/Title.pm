@@ -37,8 +37,8 @@ sub transform {
 
 sub new {
     my $self = shift;
-    $title_stem = String::Normal::Config::TitleStem::_data();
-    $title_stop = String::Normal::Config::TitleStop::_data();
+    $title_stem = String::Normal::Config::TitleStem::_data( @_ );
+    $title_stop = String::Normal::Config::TitleStop::_data( @_ );
     return bless {@_}, $self;
 }
 
