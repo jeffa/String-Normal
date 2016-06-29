@@ -51,6 +51,13 @@ __DATA__
 mp4
 avi
 mkv
+srt
+idx
+sub
+pt1
+pt2
+cd1
+cd2
 an
 and
 by
