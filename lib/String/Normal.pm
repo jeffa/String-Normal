@@ -173,7 +173,7 @@ Contains stop words to be removed from addresses.
 
 =item * L<String::Normal::Config::AddressStem>
 
-Transforms into some normal form, but does use L<Lingua::Stem>.
+Transforms into some normal form, but does not use L<Lingua::Stem>.
 
 =item * L<String::Normal::Config::State>
 
@@ -189,7 +189,7 @@ Contains stop words to be removed from titles.
 
 =item * L<String::Normal::Config::TitleStem>
 
-Transforms into some normal form, but does use L<Lingua::Stem>.
+Transforms into some normal form, but does not use L<Lingua::Stem>.
 
 =back
 
