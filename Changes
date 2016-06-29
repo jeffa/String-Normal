@@ -1,4 +1,10 @@
 Revision history for String-Normal
 
-0.01    First version, released on an unsuspecting world.
+0.02
+    - added Title type
+    - normalizer takes --file arg
+    - better documentation
+
+0.01    
+    - First version, released on an unsuspecting world.
 
