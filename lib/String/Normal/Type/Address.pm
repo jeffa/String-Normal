@@ -63,7 +63,23 @@ and city types of a record.
 
     my $address = String::Normal::Type::Address->new;
 
-Creates a Address type.
+Creates an Address type. Accepts the following named parameters:
+
+=back
+
+=over 8
+
+=item * C<address_stem>
+
+Path to text file to override default address stemming.
+
+=item * C<address_stop>
+
+Path to text file to override default address stop words.
+
+=back
+
+=over 4
 
 =item C<transform( $value )>
 

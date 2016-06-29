@@ -146,17 +146,15 @@ Creates a Business type. Accepts the following named parameters:
 
 =item * C<business_stem>
 
+Path to text file to override default business name stemming.
+
 =item * C<business_stop>
+
+Path to text file to override default business name stop words.
 
 =item * C<business_compress>
 
-=item * C<address_stem>
-
-=item * C<address_stop>
-
-=item * C<area_codes>
-
-=item * C<states>
+Path to text file to override default business name compressions.
 
 =back
 

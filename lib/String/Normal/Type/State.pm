@@ -52,7 +52,7 @@ String::Normal::Type::State;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on state types.
+This package defines substitutions to be performed on State types.
 
 =head1 METHODS
 

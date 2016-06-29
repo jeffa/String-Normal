@@ -78,7 +78,11 @@ Creates a Title type. Accepts the following named parameters:
 
 =item * C<title_stem>
 
+Path to text file to override default title name stemming.
+
 =item * C<title_stop>
+
+Path to text file to override default title name stop words.
 
 =back
 

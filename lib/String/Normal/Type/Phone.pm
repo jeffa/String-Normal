@@ -55,12 +55,24 @@ telephone area codes used in phone validation.
 
     my $phone = String::Normal::Type::Phone->new;
 
-Creates a Business type.
+Creates a Phone type. Accepts the following named parameters:
+
+=back
+
+=over 8
+
+=item * C<area_codes>
+
+Path to text file to override default area codes.
+
+=back
+
+=over 4
 
 =item C<transform( $value )>
 
     my $new_value = $phone->transform( $value );
 
-Transforms a value according to the rules of a Business type.
+Transforms a value according to the rules of a Phone type.
 
 =back
