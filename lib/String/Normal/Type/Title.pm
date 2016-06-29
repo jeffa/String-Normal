@@ -23,14 +23,19 @@ sub transform {
         push @tokens, $token;
     }
 
-    # remove all middle stop words
+    # Remove all middle stop words that are safe to remove, based on the number of
+    # tokens, of course.
     my @filtered = map {
         my $count = $title_stop->{middle}{$_} || '';
         (length $count and @tokens >= $count) ? () : $_;
     } @tokens;
 
-    # revert if we filtered words down to less than 1 token
-    @filtered = @tokens if @filtered < 1;
+    # stem, but override if Stemmer "blanks out" token
+    my @copy = @filtered;
+    $STEM->stem_in_place( @copy );
+    for my $i (0 .. $#copy) {
+        $filtered[$i] = $copy[$i] if $copy[$i] ne '';
+    }
 
     return join ' ', @filtered;
 }
@@ -39,6 +44,8 @@ sub new {
     my $self = shift;
     $title_stem = String::Normal::Config::TitleStem::_data( @_ );
     $title_stop = String::Normal::Config::TitleStop::_data( @_ );
+    $STEM = Lingua::Stem->new;
+    $STEM->add_exceptions( $title_stem );
     return bless {@_}, $self;
 }
 
