@@ -29,8 +29,8 @@ sub transform {
         (length $count and @tokens >= $count) ? () : $_;
     } @tokens;
 
-    # revert if we filtered words down to less than 2 tokens
-    @filtered = @tokens if @filtered < 2;
+    # revert if we filtered words down to less than 1 token
+    @filtered = @tokens if @filtered < 1;
 
     return join ' ', @filtered;
 }

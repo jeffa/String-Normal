@@ -12,12 +12,12 @@ use Pod::Usage;
 use Getopt::Long;
 
 GetOptions (
-    'file=s'    => \my $file,
-    'value=s'   => \my $value,
-    'type=s'    => \my $type,
-    'help'      => \my $help,
-    'man'       => \my $man,
-    'version'   => \my $version,
+    'file|f=s'      => \my $file,
+    'value|v=s'     => \my $value,
+    'type|t=s'      => \my $type,
+    'help|h'        => \my $help,
+    'man'           => \my $man,
+    'version'       => \my $version,
 );
 pod2usage( -verbose => 0 ) if defined $help;
 pod2usage( -verbose => 2 ) if $man;
