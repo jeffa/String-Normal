@@ -50,7 +50,7 @@ sub transform {
 __END__
 =head1 NAME
 
-String::Normal - Transform strings into a normal form.
+String::Normal - Just another normal form string transformer.
 
 =head1 SYNOPSIS
 
@@ -74,6 +74,24 @@ String::Normal - Transform strings into a normal form.
   $normalizer = String::Normal->new( type => 'zip' );
   print $normalizer->transform( '90292' );                     # 90292
 
+=head1 DESCRIPTION
+
+THIS MODULE IS AN ALPHA RELEASE!
+
+Transform strings into a normal form. Performs tokenization, snowball stemming,
+stop word removal and complex name compression.
+
+Consider the following values:
+
+    Bary & Sons' Bakery
+    Bary's & Sons Bakeries
+    Bary's and Sons' Bakeries
+
+These are business names as potentialy found in business listings. 
+When each of these values is passed to C<transform()> the return value
+will be "bakeri bari son." This is accomplished by a number of transformation
+rules, found in the respective C<Type> class.
+
 =head1 CLI TOOLS
 
 =over 4
@@ -90,20 +108,7 @@ Quickly transform values without writing a script:
 
 =back
 
-=head1 DESCRIPTION
-
-THIS MODULE IS AN ALPHA RELEASE!
-
-Normalize your strings. Consider:
-
-    Bary & Sons' Bakery
-    Bary's & Sons Bakeries
-    Bary's and Sons' Bakeries
-
-These are business names as potentialy found in business listings. 
-When each of these values is passed to C<transform()> the return value
-will be "bakeri bari son." This is accomplished by a number of transformation
-rules, found in the respective C<Type> class:
+=head1 TYPE CLASSES
 
 =over 4
 
@@ -144,6 +149,8 @@ but can be used to match duplicated from other sources as well, such as movie, f
 and television show titles.
 
 Each type uses data found in a respective Config class:
+
+=head1 CONFIG CLASSES
 
 =head3 Business
 
