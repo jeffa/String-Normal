@@ -145,6 +145,11 @@ and television show titles.
 
 Each type uses data found in a respective Config class:
 
+=head3 Business
+
+Business values are first compressed, then stemmed via L<Lingua::Stem>
+(with customizations) and finally stop worded.
+
 =over 4
 
 =item * L<String::Normal::Config::BusinessStop>
@@ -167,8 +172,13 @@ Compress words are combined into one word. Consider:
 
 These are all "compressed" into the value C<kmart>.
 
-Business values are first compressed, then stemmed via L<Lingua::Stem>
-(with customizations) and finally stop worded.
+=back
+
+=head3 Address
+
+Address values are first stemmed with a simple substitution and then finally stop worded.
+
+=over 4
 
 =item * L<String::Normal::Config::AddressStop>
 
@@ -178,15 +188,13 @@ Contains stop words to be removed from addresses.
 
 Transforms into some normal form, but does not use L<Lingua::Stem>.
 
-Address values are first stemmed with a simple substitution and then finally stop worded.
+=back
 
-=item * L<String::Normal::Config::State>
+=head3 Title
 
-Valide US and Canadian state codes.
+Title values are stop worded first, then stemmed via L<Lingua::Stem>.
 
-=item * L<String::Normal::Config::AreaCodes>
-
-Valid US area codes.
+=over 4
 
 =item * L<String::Normal::Config::TitleStop>
 
@@ -194,9 +202,27 @@ Contains stop words to be removed from titles.
 
 =item * L<String::Normal::Config::TitleStem>
 
-Transforms into some normal form, via L<Lingua::Stem> with no cusomizations.
+Transforms into some normal form, via L<Lingua::Stem> with no customizations.
 
-Title values are stop worded first, then stemmed.
+=back
+
+=head3 State
+
+=over 4
+
+=item * L<String::Normal::Config::State>
+
+Valide US and Canadian state codes.
+
+=back
+
+=head3 Phone
+
+=over 4
+
+=item * L<String::Normal::Config::AreaCodes>
+
+Valid US area codes.
 
 =back
 
