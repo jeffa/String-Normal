@@ -81,6 +81,45 @@ THIS MODULE IS AN ALPHA RELEASE!
 Transform strings into a normal form. Performs tokenization, snowball stemming,
 stop word removal and complex name compression.
 
+=head1 METHODS
+
+=over 4
+
+=item C<new( %params )>
+
+  my $normalizer = String::Normal->new( %params );
+
+Constructs object. Accepts the following named parameters:
+
+=back
+
+=over 8
+
+=item * C<type>
+
+Available types: business, address, phone, city, state, zip and title.
+Defaults to C<business>.
+
+  my $normalizer = String::Normal->new( type => 'title' );
+
+=item * various configuration overides
+
+See L<TYPE CLASSES> for more information.
+
+=back
+
+=over 4
+
+=item C<transform( $word )>
+
+  my $scalar = $normalizer->transform( 'Alien 1979 1080p.avi' );
+
+Normalizes word based on given type.
+
+=back
+
+=head1 TYPE CLASSES
+
 Consider the following values:
 
     Bary & Sons' Bakery
@@ -92,33 +131,24 @@ When each of these values is passed to C<transform()> the return value
 will be "bakeri bari son." This is accomplished by a number of transformation
 rules, found in the respective C<Type> class.
 
-=head1 CLI TOOLS
-
-=over 4
-
-=item * C<normalizer>
-
-Quickly transform values without writing a script:
-
-  $ normalizer --value='Jones & Sons Bakeries'
-
-  $ normalizer --value='Los Angeles' --type='city'
-
-  $ normalizer --file=addresses.txt --type=address
-
-=back
-
-=head1 TYPE CLASSES
-
 =over 4
 
 =item * L<String::Normal::Type::Business>
 
-Rules for business name listings, such as "Bary's Bakery"
+Rules for business name listings, such as "Bary's Bakery".
+Provides C<business_stem>, C<business_stop> and C<business_compress> data overides:
+
+  my $normalizer = String::Normal->new( business_stem => '/path/to/stem.txt' );
 
 =item * L<String::Normal::Type::Address>
 
-Rules for business address listings, such as "123 Main Street Suite A"
+Rules for business address listings, such as "123 Main Street Suite A".
+Provides C<address_stem> and C<address_stop> data overides:
+
+  my $normalizer = String::Normal->new(
+      type          => 'address',
+      business_stem => '/path/to/stem.txt',
+  );
 
 =item * L<String::Normal::Type::City>
 
@@ -135,10 +165,22 @@ Rules for US and Canadian zip codes.
 =item * L<String::Normal::Type::Phone>
 
 Rules for US area and exchange phone codes.
+Provides C<area_codes> data overides:
+
+  my $normalizer = String::Normal->new(
+      type       => 'phone',
+      area_codes => '/path/to/codes.txt',
+  );
 
 =item * L<String::Normal::Type::Title>
 
 Rules for movie, film and television show titles.
+Provides C<title_stem> and C<title_stop> data overides:
+
+  my $normalizer = String::Normal->new(
+      type       => 'title',
+      title_stop => '/path/to/stop-words.txt',
+  );
 
 =back
 
@@ -148,7 +190,7 @@ here) was designed with the need to identify and match duplicate business listin
 but can be used to match duplicated from other sources as well, such as movie, film
 and television show titles.
 
-Each type uses data found in a respective Config class:
+Each type uses data found in a respective Config class.
 
 =head1 CONFIG CLASSES
 
@@ -234,38 +276,21 @@ Valid US area codes.
 =back
 
 All Config classes can be overriden by specifying your own
-custom text files. See C<new()> below:
+custom text files.
 
-=head1 METHODS
-
-=over 4
-
-=item C<new( %params )>
-
-  my $normalizer = String::Normal->new;
-
-Constructs object. Accepts the following named parameters:
-
-=back
-
-=over 8
-
-=item * C<type>
-
-Available types: business, address, phone, city, state, zip and title.
-Defaults to C<business>.
-
-  my $normalizer = String::Normal->new( type => 'title' );
-
-=back
+=head1 CLI TOOLS
 
 =over 4
 
-=item C<transform( $word )>
+=item * C<normalizer>
 
-  my $scalar = $normalizer->transform( 'Alien 1979 1080p.avi' );
+Quickly transform values without writing a script:
 
-Normalizes word based on given type.
+  $ normalizer --value='Jones & Sons Bakeries'
+
+  $ normalizer --value='Los Angeles' --type='city'
+
+  $ normalizer --file=addresses.txt --type=address
 
 =back
 
