@@ -4,6 +4,17 @@ Transform strings into a normal form.  [![CPAN Version](https://badge.fury.io/pl
 
 Synopsis
 --------
+```
+normalizer --value='Jones & Sons Bakeries'
+
+normalizer --value='Los Angeles' --type='city'
+
+normalizer --file=addresses.txt --type=address
+
+```
+
+Backend API
+-----------
 ```perl
 use String::Normal;
 
