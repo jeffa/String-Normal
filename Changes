@@ -1,6 +1,8 @@
 Revision history for String-Normal
 
 0.04
+    - removed start (^) and end ($) from title and address stop word removal
+    - improved documentation
 
 0.03
     - adjusted rules for Title
