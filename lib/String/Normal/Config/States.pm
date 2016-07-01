@@ -109,6 +109,31 @@ String::Normal::Config::States;
 
 This package defines valid U.S. and Candadian codes.
 
+=head1 STRUCTURE
+
+Unless the other Config classes, this one provides a hash reference
+which contains:
+
+=over 4
+
+=item * C<us_codes>
+
+All valid US codes.
+
+=item * C<ca_codes>
+
+All valid CA codes.
+
+=item * C<by_short>
+
+All codes with their short version as the key.
+
+=item * C<by_long>
+
+All codes with their long version as the key.
+
+This Config class cannot be overriden.
+
 =head1 AUTHOR
 
 Jeff Anderson, C<< <jeffa at cpan.org> >>

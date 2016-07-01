@@ -29,6 +29,16 @@ String::Normal::Config::AreaCodes;
 
 This package defines valid U.S. and Candadian codes.
 
+=head1 STRUCTURE
+
+One entry per line. Each entry should be exactly 3 digits with no other characters.
+See C<__DATA__> section for examples.
+
+You can provide your own data by creating a text file containing your
+values and provide the path to that file via the constructor: 
+
+  my $normalizer = String::Normal->new( area_codes => '/path/to/values.txt' );
+
 =head1 AUTHOR
 
 Jeff Anderson, C<< <jeffa at cpan.org> >>
