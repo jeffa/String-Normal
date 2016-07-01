@@ -132,6 +132,8 @@ All codes with their short version as the key.
 
 All codes with their long version as the key.
 
+=back
+
 This Config class cannot be overriden.
 
 =head1 AUTHOR
