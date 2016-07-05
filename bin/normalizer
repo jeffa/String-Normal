@@ -15,6 +15,7 @@ GetOptions (
     'file|f=s'      => \my $file,
     'value|v=s'     => \my $value,
     'type|t=s'      => \my $type,
+    'config|c=s'    => \my %config,
     'help|h'        => \my $help,
     'man'           => \my $man,
     'version'       => \my $version,
@@ -24,8 +25,8 @@ pod2usage( -verbose => 2 ) if $man;
 
 if ($version) {
     print "$_\n" for 
-        "      String::Normal path: " . $INC{'Spreadsheet/HTML.pm'},
-        "   String::Normal version: $Spreadsheet::HTML::VERSION",
+        "      String::Normal path: " . $INC{'String/Normal.pm'},
+        "   String::Normal version: $String::Normal::VERSION",
     ;
     exit;
 }
@@ -34,7 +35,17 @@ unless (defined( $value ) or defined( $file )) {
     pod2usage({ -message => '--value or --file is required', -exitval => 1, -verbose => 0 });
 }
 
-my $normalizer = String::Normal->new( type => $type );
+my $normalizer = String::Normal->new(
+    type                => $type,
+    business_stem       => $config{business_stem},
+    business_stop       => $config{business_stop},
+    business_compress   => $config{business_compress},
+    address_stem        => $config{address_stem},
+    address_stop        => $config{address_stop},
+    title_stem          => $config{title_stem},
+    title_stop          => $config{title_stop},
+    area_codes          => $config{area_codes},
+);
 
 if ($file) {
     open my $fh, $file or die "Cannot open $file: $!\n";
@@ -103,6 +114,8 @@ Prints the versions of the core modules used.
   normalizer --value="Jones's & Sons Bakeries"
 
   normalizer --value="123 Main Street" --type=address
+
+  ls -1 | normalizer --type=title --file=-
 
 =head1 SEE ALSO
 
