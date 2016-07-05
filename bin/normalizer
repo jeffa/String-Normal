@@ -74,7 +74,7 @@ normalizer - transform strings into a normal form
 
 =head1 SYNOPSIS
 
-mktable method [options]
+normalizer [options]
 
  Options:
    --file       file
