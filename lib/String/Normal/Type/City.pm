@@ -37,7 +37,7 @@ String::Normal::Type::City;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on city types.
+This package defines substitutions to be performed on City types.
 
 =head1 METHODS
 

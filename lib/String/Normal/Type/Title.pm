@@ -59,8 +59,8 @@ String::Normal::Type::Title;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on title types, such as the titles
-for movies, film and television shows.
+This package defines substitutions to be performed on Title types,
+such as the titles for movies, film and television shows.
 
 =head1 METHODS
 

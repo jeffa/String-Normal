@@ -26,7 +26,7 @@ String::Normal::Config::AddressStem;
 
 =head1 DESCRIPTION
 
-This package defines removals to be performed on the address type.
+This package defines removals to be performed on Address type.
 
 =head1 STRUCTURE
 

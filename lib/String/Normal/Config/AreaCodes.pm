@@ -27,7 +27,7 @@ String::Normal::Config::AreaCodes;
 
 =head1 DESCRIPTION
 
-This package defines valid U.S. and Candadian codes.
+This package defines valid U.S. area codes.
 
 =head1 STRUCTURE
 

@@ -30,7 +30,7 @@ String::Normal::Config::BusinessCompress;
 
 =head1 DESCRIPTION
 
-This package defines compressions to be performed on the business types.
+This package defines compressions to be performed on Business types.
 
 =head1 STRUCTURE
 

@@ -41,7 +41,7 @@ String::Normal::Config::BusinessStop;
 
 =head1 DESCRIPTION
 
-This package defines removals to be performed on the business types.
+This package defines removals to be performed on Business types.
 
 =head1 STRUCTURE
 

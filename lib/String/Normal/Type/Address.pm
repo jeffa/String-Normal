@@ -52,8 +52,7 @@ String::Normal::Type::Address;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on the address
-and city types of a record.
+This package defines substitutions to be performed on Address types.
 
 =head1 METHODS
 

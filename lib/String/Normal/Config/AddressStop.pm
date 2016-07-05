@@ -33,7 +33,7 @@ String::Normal::Config::AddressStop;
 
 =head1 DESCRIPTION
 
-This package defines removals to be performed on address types.
+This package defines removals to be performed on Address types.
 
 =head1 STRUCTURE
 

@@ -107,7 +107,7 @@ String::Normal::Config::States;
 
 =head1 DESCRIPTION
 
-This package defines valid U.S. and Candadian codes.
+This package defines valid U.S. and Candadian state codes.
 
 =head1 STRUCTURE
 

@@ -26,7 +26,7 @@ String::Normal::Config::BusinessStem;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on the business types.
+This package defines substitutions to be performed on Business types.
 
 =head1 STRUCTURE
 

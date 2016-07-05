@@ -214,12 +214,13 @@ use L<Lingua::Stem> with some customizations.
 
 Compress words are combined into one word. Consider:
 
-    K*Mart
-    K-Mart
-    K Mart
-    Kmart
+    Box*Mart
+    Box-Mart
+    Box Mart
+    BoxMart
 
-These are all "compressed" into the value C<kmart>.
+These are all "compressed" into the value C<boxmart> by specifying
+the value C<box-mart> in the compression list.
 
 =back
 

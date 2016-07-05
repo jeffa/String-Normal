@@ -39,7 +39,7 @@ String::Normal::Type::Zip;
 
 =head1 DESCRIPTION
 
-This package defines substitutions to be performed on zip types.
+This package defines substitutions to be performed on Zip types.
 
 =head1 METHODS
 

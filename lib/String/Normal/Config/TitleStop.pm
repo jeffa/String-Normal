@@ -32,7 +32,7 @@ String::Normal::Config::TitleStop;
 
 =head1 DESCRIPTION
 
-This package defines removals to be performed on title types.
+This package defines removals to be performed on Title types.
 
 =head1 STRUCTURE
 
