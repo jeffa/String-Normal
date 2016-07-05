@@ -35,6 +35,19 @@ unless (defined( $value ) or defined( $file )) {
     pod2usage({ -message => '--value or --file is required', -exitval => 1, -verbose => 0 });
 }
 
+# check for custom config and override %config with values found
+my %ini;
+my $ini = "$ENV{HOME}/.normalizer.ini";
+if (-f $ini) {
+    my $fh;
+    if (open $fh, $ini) {
+        %ini = String::Normal::Config::_slurp( $fh ); 
+    } else {
+        warn "Can't read config file $ini: $!\n";
+    }
+}
+%config = ( %config, %ini );
+
 my $normalizer = String::Normal->new(
     type                => $type,
     business_stem       => $config{business_stem},
@@ -64,8 +77,10 @@ normalizer - transform strings into a normal form
 mktable method [options]
 
  Options:
+   --file       file
    --value      value
-   --type       business,address,city,state,zip,phone,title
+   --type       business, address, city, state, zip, phone or title
+   --config     business_stem, address_stop, etc.
    --help       list usage for methods and parameters
    --man        print man page
    --version    show module path and version
@@ -79,18 +94,32 @@ mktable method [options]
 The value to transform.
 
   --value="The The"
+  -v "The "the"
 
 =item B<--file>
 
 Text file containing one value per line.
 
   --file=values.txt
+  -f values.txt
 
 =item B<--type>
 
 The type of value: business, address, city, state, zip, phone or title. Defaults to business.
 
   --type=address
+  -t address
+
+=item B<--config>
+
+Multiple key=value pairs. Override data found in Config types by specifying your own paths:
+
+  --config business_stem=/path/to/my_stem.txt --config address_stop=/path/to/my_stop.txt
+  -c business_stem=/path/to/my_stem.txt -c address_stop=/path/to/my_stop.txt
+
+Overrides any values found in custom config file: C<$ENV{HOME}/.normalizer.ini>
+
+See L<String::Normal> for full list of config keys.
 
 =item B<--help>
 
@@ -105,6 +134,21 @@ Prints the manual page and exits.
 Prints the versions of the core modules used.
 
 =back
+
+=head1 CONFIG
+
+This tool will check for the presence of a config file with the location/name
+C<$ENV{HOME}/.normalizer.ini> Here you may specify the paths to your custom data
+files which will override data found in Config classes, one pair per line:
+
+  business_stem /path/to/my_business_stem.txt
+  business_stop /path/to/my_business_stop.txt
+  # etc.
+
+These values will be checked first, and any C<--config> command line args will
+override them.
+
+See L<String::Normal> for full list of config keys.
 
 =head1 EXAMPLES
 

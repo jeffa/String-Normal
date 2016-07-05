@@ -1,6 +1,7 @@
 Revision history for String-Normal
 
 0.05
+    - normalizer tool now uses config file
     - added --config option to normalizer tool
     - corrected normalizer tool --version arg
     - corrected license type in Makefile
