@@ -1,5 +1,7 @@
 Revision history for String-Normal
 
+0.06
+
 0.05
     - normalizer tool now uses config file
     - added --config option to normalizer tool
