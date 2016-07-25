@@ -108,12 +108,12 @@ __DATA__
 720p
 1080p
 mp4
+mp3
 avi
 mkv
-srt
-idx
-sub
 bluray
+brrip
+xvid
 dvd
 h264
 aac
