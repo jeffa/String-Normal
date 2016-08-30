@@ -113,6 +113,7 @@ avi
 mkv
 bluray
 brrip
+webrip
 xvid
 dvd
 h264
