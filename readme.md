@@ -1,6 +1,6 @@
 String::Normal
 =====================
-Transform strings into a normal form.  [![CPAN Version](https://badge.fury.io/pl/String-Normal.svg)](https://metacpan.org/pod/String::Normal) [![Build Status](https://api.travis-ci.org/jeffa/String-Normal.svg?branch=master)](https://travis-ci.org/jeffa/String-Normal)
+Transform strings into a normal form.  [![CPAN Version](https://badge.fury.io/pl/String-Normal.svg)](https://metacpan.org/pod/String::Normal)
 
 Synopsis
 --------
